@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileStoringService.Entities
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileStoringService.UseCases", "FileStoringService.UseCases\FileStoringService.UseCases.csproj", "{5E5C784E-79F6-4367-AF25-73E440B38FAD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileAnalisysService", "FileAnalisysService\FileAnalisysService.csproj", "{A658F1BD-2F33-4039-9827-793179F60B83}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{5E5C784E-79F6-4367-AF25-73E440B38FAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E5C784E-79F6-4367-AF25-73E440B38FAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E5C784E-79F6-4367-AF25-73E440B38FAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A658F1BD-2F33-4039-9827-793179F60B83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A658F1BD-2F33-4039-9827-793179F60B83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A658F1BD-2F33-4039-9827-793179F60B83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A658F1BD-2F33-4039-9827-793179F60B83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
