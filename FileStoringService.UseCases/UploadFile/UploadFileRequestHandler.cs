@@ -7,11 +7,11 @@ namespace FileStoringService.UseCases.UploadFile;
 internal sealed  class UploadFileRequestHandler : IUploadFileRequestHandler
 {
     private readonly IUploadFileRepository _repository;
-    private readonly IFileStorage _fileStorage;
+    private readonly IFileStorageUploadFile _fileStorage;
     
     public UploadFileRequestHandler(
         IUploadFileRepository repository,
-        IFileStorage fileStorage)
+        IFileStorageUploadFile fileStorage)
     {
         _repository = repository;
         _fileStorage = fileStorage;

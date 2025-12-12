@@ -5,11 +5,11 @@ namespace FileStoringService.UseCases.DownloadFile;
 public class DownloadFileRequestHandler : IDownloadFileRequestHandler
 {
     private readonly IDownloadFileRepository _repository;
-    private readonly IFileStorage _fileStorage;
+    private readonly IFileStoragelDownloadFile _fileStorage;
 
     public DownloadFileRequestHandler(
         IDownloadFileRepository repository,
-        IFileStorage fileStorage)
+        IFileStoragelDownloadFile fileStorage)
     {
         _repository = repository;
         _fileStorage = fileStorage;

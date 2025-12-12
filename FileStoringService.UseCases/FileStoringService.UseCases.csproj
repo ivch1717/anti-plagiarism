@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\FileStoringService.Entities\FileStoringService.Entities.csproj" />
+        <ProjectReference Include="..\FileStoringService.Entities\FileStoringService.Entities.csproj" />
     </ItemGroup>
 
 </Project>

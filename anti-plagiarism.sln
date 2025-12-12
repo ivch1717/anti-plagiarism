@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileAnalisysService.UseCase
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileStoringService.Infrastructure", "FileStoringService.Infrastructure\FileStoringService.Infrastructure.csproj", "{8956A080-30D3-48B8-BD7C-09E005B8FB87}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileAnalisysService.Infrastructure", "FileAnalisysService.Infrastructure\FileAnalisysService.Infrastructure.csproj", "{9CC73BA2-DEEE-4946-B22F-9751A4F1D7B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileStoringService.Presentation", "FileStoringService.Presentation\FileStoringService.Presentation.csproj", "{F8FAF02D-014F-40A6-BAB8-C892E1F2C30D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +40,13 @@ Global
 		{8956A080-30D3-48B8-BD7C-09E005B8FB87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8956A080-30D3-48B8-BD7C-09E005B8FB87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8956A080-30D3-48B8-BD7C-09E005B8FB87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CC73BA2-DEEE-4946-B22F-9751A4F1D7B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CC73BA2-DEEE-4946-B22F-9751A4F1D7B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CC73BA2-DEEE-4946-B22F-9751A4F1D7B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CC73BA2-DEEE-4946-B22F-9751A4F1D7B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8FAF02D-014F-40A6-BAB8-C892E1F2C30D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8FAF02D-014F-40A6-BAB8-C892E1F2C30D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8FAF02D-014F-40A6-BAB8-C892E1F2C30D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8FAF02D-014F-40A6-BAB8-C892E1F2C30D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -7,16 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\FileStoringService.Entities\FileStoringService.Entities.csproj" />
-        <ProjectReference Include="..\FileStoringService.UseCases\FileStoringService.UseCases.csproj" />
+        <ProjectReference Include="..\FileAnalisysService.Entities\FileAnalisysService.Entities.csproj" />
+        <ProjectReference Include="..\FileAnalisysService.UseCases\FileAnalisysService.UseCases.csproj" />
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.0" />
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.0" />
     </ItemGroup>
 
