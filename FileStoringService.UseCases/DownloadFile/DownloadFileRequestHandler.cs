@@ -15,26 +15,18 @@ public class DownloadFileRequestHandler : IDownloadFileRequestHandler
         _fileStorage = fileStorage;
     }
     
+    
     public DownloadFileResponse Handle(DownloadFileRequest request)
     {
         if (request.FileId == Guid.Empty)
-        {
             throw new ArgumentException("Некорректный идентификатор файла");
-        }
 
-        var storedFile = _repository.GetById(request.FileId);
+        var storedFile = _repository.GetById(request.FileId)
+                         ?? throw new FileNotFoundException("Файл не найден");
 
-        if (storedFile is null)
-        {
-            throw new FileNotFoundException("Файл не найден");
-        }
-        
         var stream = _fileStorage.OpenRead(storedFile.StorageKey);
 
-        return new DownloadFileResponse(
-            Content: stream,
-            ContentType: storedFile.ContentType,
-            FileName: storedFile.FileName
-        );
+        return storedFile.ToDto(stream);
     }
+
 }

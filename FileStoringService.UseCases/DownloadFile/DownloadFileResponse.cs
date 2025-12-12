@@ -3,5 +3,6 @@ namespace FileStoringService.UseCases.DownloadFile;
 public sealed record DownloadFileResponse(
     Stream Content,
     string ContentType,
-    string FileName
+    string FileName,
+    string ContentHash
 );
