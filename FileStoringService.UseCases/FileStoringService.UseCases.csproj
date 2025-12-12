@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\FileStoringService.Entities\FileStoringService.Entities.csproj" />
+    </ItemGroup>
+
 </Project>

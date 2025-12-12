@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileStoringService.Entities
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileStoringService.UseCases", "FileStoringService.UseCases\FileStoringService.UseCases.csproj", "{5E5C784E-79F6-4367-AF25-73E440B38FAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileAnalisysService", "FileAnalisysService\FileAnalisysService.csproj", "{A658F1BD-2F33-4039-9827-793179F60B83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileAnalisysService.Entities", "FileAnalisysService.Entities\FileAnalisysService.Entities.csproj", "{A658F1BD-2F33-4039-9827-793179F60B83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
