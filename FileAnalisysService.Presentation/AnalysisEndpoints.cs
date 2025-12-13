@@ -1,4 +1,4 @@
-using FileAnalisysService.UseCases.GetReportsByWorkId;
+using FileAnalisysService.UseCases.GetReportByWorkId;
 using FileAnalisysService.UseCases.GetReportsByAssignment;
 using FileAnalisysService.UseCases.SubmitWork;
 using Microsoft.AspNetCore.Builder;
@@ -47,10 +47,11 @@ public static class AnalysisEndpoints
                 if (workId == Guid.Empty)
                     return Results.BadRequest(new { error = "Некорректный WorkId" });
 
-                var response = handler.Handle(new GetReportsByWorkIdRequest(workId));
-                
+                var report = handler.Handle(new GetReportsByWorkIdRequest(workId));
+                if (report is null)
+                    return Results.NotFound(new { error = "Отчет не найден" });
 
-                return Results.Ok(response);
+                return Results.Ok(report);
             })
             .WithName("GetReportByWorkId")
             .WithSummary("Get report by work id")

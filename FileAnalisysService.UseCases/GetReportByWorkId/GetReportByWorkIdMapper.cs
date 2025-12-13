@@ -1,5 +1,5 @@
 using FileAnalisysService.Entities;
-namespace FileAnalisysService.UseCases.GetReportsByWorkId;
+namespace FileAnalisysService.UseCases.GetReportByWorkId;
 
 internal static class GetReportByWorkIdMapper
 {

@@ -1,4 +1,4 @@
-namespace FileAnalisysService.UseCases.GetReportsByWorkId;
+namespace FileAnalisysService.UseCases.GetReportByWorkId;
 
 public sealed record GetReportByWorkIdResponse(
     Guid ReportId,

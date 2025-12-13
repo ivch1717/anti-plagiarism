@@ -1,6 +1,6 @@
 using FileAnalisysService.Infrastructure.Data;
 using FileAnalisysService.Infrastructure.Data.Repositories;
-using FileAnalisysService.UseCases.GetReportsByWorkId;
+using FileAnalisysService.UseCases.GetReportByWorkId;
 using FileAnalisysService.UseCases.GetReportsByAssignment;
 using FileAnalisysService.UseCases.SubmitWork;
 using Microsoft.EntityFrameworkCore;

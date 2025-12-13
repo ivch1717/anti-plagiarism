@@ -1,5 +1,5 @@
 using FileAnalisysService.Entities;
-using FileAnalisysService.UseCases.GetReportsByWorkId;
+using FileAnalisysService.UseCases.GetReportByWorkId;
 using FileAnalisysService.UseCases.SubmitWork;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,4 +1,5 @@
 using FileAnalisysService.Entities;
+using FileAnalisysService.UseCases.Ports;
 using FileAnalisysService.UseCases.SubmitWork;
 
 namespace FileAnalisysService.UseCases.SubmitWork;

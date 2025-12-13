@@ -1,9 +1,10 @@
 using FileAnalisysService.Infrastructure;
 using FileAnalisysService.Presentation;
 using FileAnalisysService.UseCases.SubmitWork;
-using FileAnalisysService.UseCases.GetReportsByWorkId;
+using FileAnalisysService.UseCases.GetReportByWorkId;
 using FileAnalisysService.UseCases.GetReportsByAssignment;
 using FileAnalysisService.Infrastructure.Http;
+using FileAnalisysService.UseCases.Ports;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,12 +21,15 @@ builder.Services.AddScoped<IGetReportsByAssignmentRequestHandler, GetReportsByAs
 builder.Services.AddHttpClient<IFileStoringClient, FileStoringClient>(client =>
 {
     var baseUrl = builder.Configuration["Services:FileStoring:BaseUrl"];
-    if (string.IsNullOrEmpty(baseUrl))
-    {
-        throw new InvalidOperationException("FileStoringService base URL is missing.");
-    }
+    if (string.IsNullOrWhiteSpace(baseUrl))
+        throw new InvalidOperationException("Services:FileStoring:BaseUrl is missing.");
+
     client.BaseAddress = new Uri(baseUrl);
 });
+
+builder.Services.AddHttpClient();
+
+builder.Services.AddSingleton<IWordCloudRenderer, QuickChartWordCloudRenderer>();
 
 var app = builder.Build();
 
