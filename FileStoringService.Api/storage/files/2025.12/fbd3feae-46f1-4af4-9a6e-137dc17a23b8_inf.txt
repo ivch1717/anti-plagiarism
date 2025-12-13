@@ -1,0 +1,42 @@
+	
+Response body
+Download
+{
+  "assignmentId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "items": [
+    {
+      "workId": "97a7249e-1f8f-4fb0-ad1e-0e3722c91785",
+      "studentId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "submittedAt": "2025-12-13T14:21:37.723926+00:00",
+      "fileId": "066ec961-eb41-4752-a24a-d5a27dc85e8a",
+      "reportId": "6268b32e-3f58-452b-badc-eb6e795c3071",
+      "status": 1,
+      "isPlagiarism": false,
+      "originalWorkId": null,
+      "details": "Заимствований не обнаружено"
+    },
+    {
+      "workId": "f30a0462-86ec-4ecd-b6c7-b4427bbe1fa4",
+      "studentId": "3fa85f64-5717-4562-b3fc-2c963f66afa7",
+      "submittedAt": "2025-12-13T14:22:37.306557+00:00",
+      "fileId": "ed5c1905-0568-4e9c-a30b-a63bd5fb18bb",
+      "reportId": "cf5eaa37-2739-40d4-8284-bd0e1c9a81dd",
+      "status": 1,
+      "isPlagiarism": true,
+      "originalWorkId": "97a7249e-1f8f-4fb0-ad1e-0e3722c91785",
+      "details": "Найдена более ранняя сдача по данному заданию"
+    },
+    {
+      "workId": "4641276d-91cd-4066-b483-8ba83b43a2fb",
+      "studentId": "3fa85f64-5717-4562-b3fc-2c963f66afa7",
+      "submittedAt": "2025-12-13T14:25:15.101122+00:00",
+      "fileId": "ed5c1905-0568-4e9c-a30b-a63bd5fb18bb",
+      "reportId": "3111db57-8595-4fa6-a5ca-957d4e7fcd89",
+      "status": 1,
+      "isPlagiarism": true,
+      "originalWorkId": "97a7249e-1f8f-4fb0-ad1e-0e3722c91785",
+      "details": "Найдена более ранняя сдача по данному заданию"
+    }
+  ]
+}
+

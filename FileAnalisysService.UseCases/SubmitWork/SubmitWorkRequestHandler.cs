@@ -1,5 +1,5 @@
 using FileAnalisysService.Entities;
-using FileStoringService.UseCases.DownloadFile;
+using FileAnalisysService.UseCases.SubmitWork;
 
 namespace FileAnalisysService.UseCases.SubmitWork;
 
@@ -7,16 +7,16 @@ public class SubmitWorkRequestHandler : ISubmitWorkRequestHandler
 {
     private readonly IWorkRepository _workRepository;
     private readonly IPlagiarismReportRepository _reportRepository;
-    private readonly IDownloadFileRequestHandler _downloadFileRequestHandler;
+    private readonly IFileStoringClient _fileStoringClient;
 
     public SubmitWorkRequestHandler(
         IWorkRepository workRepository,
         IPlagiarismReportRepository reportRepository,
-        IDownloadFileRequestHandler downloadFileRequestHandler)
+        IFileStoringClient fileStoringClient)
     {
         _workRepository = workRepository;
         _reportRepository = reportRepository;
-        _downloadFileRequestHandler = downloadFileRequestHandler;
+        _fileStoringClient = fileStoringClient;
     }
 
     public SubmitWorkResponse Handle(SubmitWorkRequest request)
@@ -30,51 +30,50 @@ public class SubmitWorkRequestHandler : ISubmitWorkRequestHandler
         if (request.FileId == Guid.Empty)
             throw new ArgumentException("FileId не задан");
 
-        var workId = Guid.NewGuid();
         var submittedAt = DateTimeOffset.UtcNow;
+        var workId = Guid.NewGuid();
+
+        var currentFileHash = _fileStoringClient.GetFileHash(request.FileId);
 
         var work = request.ToEntity(workId, submittedAt);
-
         _workRepository.Add(work);
 
         var reportId = Guid.NewGuid();
-        PlagiarismReport report = SubmitWorkMapper.ToEntity(reportId, workId);
+        var report = SubmitWorkMapper.ToEntity(reportId, workId);
 
-        _reportRepository.Add(report);
-        
         try
         {
-            var earlierWorks = _workRepository
-                .GetEarlierWorksByAssignment(request.AssignmentId, submittedAt);
-            
-            var originalWork = earlierWorks
-                .FirstOrDefault(w => w.StudentId != request.StudentId && _downloadFileRequestHandler.Handle(w.StudentId).ContentHash
-                                      == _downloadFileRequestHandler.Handle(request.StudentId).ContentHash);
+            var earlierWorks = _workRepository.GetEarlierWorksByAssignment(request.AssignmentId, submittedAt);
+
+            Work? originalWork = null;
+
+            foreach (var earlierWork in earlierWorks)
+            {
+                if (earlierWork.StudentId == request.StudentId)
+                    continue;
+
+                var earlierFileHash = _fileStoringClient.GetFileHash(earlierWork.FileId);
+
+                if (earlierFileHash == currentFileHash)
+                {
+                    originalWork = earlierWork;
+                    break;
+                }
+            }
 
             if (originalWork != null)
-            {
-                report.MarkCompleted(
-                    isPlagiarism: true,
-                    originalWorkId: originalWork.Id,
-                    details: "Найдена более ранняя сдача по данному заданию"
-                );
-            }
+                report.MarkCompleted(true, originalWork.Id, "Обнаружено совпадение по хешу файла");
             else
-            {
-                report.MarkCompleted(
-                    isPlagiarism: false,
-                    originalWorkId: null,
-                    details: "Заимствований не обнаружено"
-                );
-            }
+                report.MarkCompleted(false, null, "Совпадений не найдено");
         }
         catch (Exception ex)
         {
             report.MarkFailed(ex.Message);
         }
 
-        _reportRepository.Update(report);
+        _reportRepository.Add(report);
 
         return SubmitWorkMapper.ToResponse(work.Id, report.Id, report.Status);
+
     }
 }

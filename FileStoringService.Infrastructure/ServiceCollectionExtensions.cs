@@ -3,6 +3,7 @@ using FileStoringService.Infrastructure.Data.Repositories;
 using FileStoringService.Infrastructure.Storage;
 using FileStoringService.UseCases.DownloadFile;
 using FileStoringService.UseCases.UploadFile;
+using FileStoringService.UseCases.GetFileHash;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +24,7 @@ public static class ServiceCollectionExtensions
         
         services.AddScoped<IUploadFileRepository, EfUploadFileRepository>();
         services.AddScoped<IDownloadFileRepository, EfDownloadFileRepository>();
+        services.AddScoped<IGetFileHashRepository, EfGetFileHashRepository>();
         
         services.AddSingleton<IFileStorageUploadFile, LocalFileStorage>();
         services.AddSingleton<IFileStoragelDownloadFile, LocalFileStorage>();

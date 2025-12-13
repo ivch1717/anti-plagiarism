@@ -8,8 +8,7 @@ internal static class DownloadFileMapper
         return new DownloadFileResponse(
             Content: content,
             ContentType: file.ContentType,
-            FileName: file.FileName,
-            ContentHash: file.ContentHash
+            FileName: file.FileName
         );
     }
 }

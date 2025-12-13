@@ -4,7 +4,7 @@ using FileStoringService.Entities;
 
 namespace FileStoringService.UseCases.UploadFile;
 
-internal sealed  class UploadFileRequestHandler : IUploadFileRequestHandler
+public class UploadFileRequestHandler : IUploadFileRequestHandler
 {
     private readonly IUploadFileRepository _repository;
     private readonly IFileStorageUploadFile _fileStorage;

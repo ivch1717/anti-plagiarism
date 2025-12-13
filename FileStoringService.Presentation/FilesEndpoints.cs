@@ -3,6 +3,7 @@ using FileStoringService.UseCases.UploadFile;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using FileStoringService.UseCases.GetFileHash;
 
 
 namespace FileStoringService.Presentation;
@@ -14,7 +15,8 @@ public static class FilesEndpoints
         app.MapGroup("/files")
             .WithTags("Files")
             .MapUploadFile()
-            .MapDownloadFile();
+            .MapDownloadFile()
+            .MapGetFileHash();
 
         return app;
     }
@@ -38,22 +40,20 @@ public static class FilesEndpoints
                 );
 
                 var response = handler.Handle(request);
-
-                // как в семинаре: Created + Location
+                
                 return Results.Created($"/files/{response.Id}", response);
             })
             .Accepts<IFormFile>("multipart/form-data")
             .Produces<UploadFileResponse>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest)
-            .WithDescription("Upload a file to storage")
-            .WithOpenApi();
+            .WithDescription("Upload a file to storage").DisableAntiforgery();
 
         return group;
     }
 
     private static RouteGroupBuilder MapDownloadFile(this RouteGroupBuilder group)
     {
-        group.MapGet("/{fileId:guid}", (Guid fileId, IDownloadFileRequestHandler handler, HttpContext ctx) =>
+        group.MapGet("/{fileId:guid}", (Guid fileId, IDownloadFileRequestHandler handler) =>
             {
                 if (fileId == Guid.Empty)
                     return Results.BadRequest(new { error = "Некорректный идентификатор файла" });
@@ -61,10 +61,7 @@ public static class FilesEndpoints
                 try
                 {
                     var response = handler.Handle(new DownloadFileRequest(fileId));
-
-                    // metadata удобно отдавать заголовком
-                    ctx.Response.Headers["X-Content-Hash"] = response.ContentHash;
-
+                    
                     return Results.File(
                         fileStream: response.Content,
                         contentType: string.IsNullOrWhiteSpace(response.ContentType)
@@ -82,8 +79,35 @@ public static class FilesEndpoints
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status404NotFound)
             .WithDescription("Download a file by id")
-            .WithOpenApi();
+            .DisableAntiforgery();
 
         return group;
     }
+    
+    private static RouteGroupBuilder MapGetFileHash(this RouteGroupBuilder group)
+    {
+        group.MapGet("/{fileId:guid}/hash", (Guid fileId, IGetFileHashRequestHandler handler) =>
+            {
+                if (fileId == Guid.Empty)
+                    return Results.BadRequest(new { error = "Некорректный идентификатор файла" });
+
+                try
+                {
+                    var response = handler.Handle(new GetFileHashRequest(fileId));
+                    return Results.Ok(response);
+                }
+                catch (FileNotFoundException)
+                {
+                    return Results.NotFound(new { error = "Файл не найден" });
+                }
+            })
+            .Produces<GetFileHashResponse>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status404NotFound)
+            .WithDescription("Get file content hash by id")
+            .DisableAntiforgery();
+
+        return group;
+    }
+
 }
