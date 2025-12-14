@@ -1,0 +1,69 @@
+﻿services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  file-storing:
+    build:
+      context: .
+      dockerfile: FileStoringService.Api/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=filestoring;Username=postgres;Password=postgres
+      FileStorage__RootPath: /data/storage
+    volumes:
+      - filestorage:/data/storage
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    ports:
+      - "7201:8080"
+
+  file-analisys:
+    build:
+      context: .
+      dockerfile: FileAnalisysService.Api/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=file_analysis;Username=postgres;Password=postgres
+      Services__FileStoring__BaseUrl: http://file-storing:8080
+    depends_on:
+      postgres:
+        condition: service_healthy
+      file-storing:
+        condition: service_started
+    restart: unless-stopped
+    ports:
+      - "7202:8080"
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: ApiGateway/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      Services__FileStoring__BaseUrl: http://file-storing:8080
+      Services__FileAnalysis__BaseUrl: http://file-analisys:8080
+    depends_on:
+      file-storing:
+        condition: service_started
+      file-analisys:
+        condition: service_started
+    ports:
+      - "7105:8080"
+
+volumes:
+  pgdata:
+  filestorage:
